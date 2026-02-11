@@ -1,0 +1,219 @@
+/*
+ * Global styles for the Couple's Quest Tracker.
+ *
+ * The site embraces an elegant, star‑filled aesthetic. A cosmos photograph is used as the
+ * background, with a semi–transparent overlay applied via JavaScript for readability.  The
+ * scroll container uses snap points so that each page section fills the viewport and
+ * transitions smoothly on scroll.  A small set of utility classes are defined to keep
+ * interactions intuitive and touch friendly across devices.
+ */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Georgia, 'Times New Roman', serif;
+  /* The background image is set dynamically via script.js; fallback color is provided. */
+  background-color: #0b0d25;
+  color: #ffffff;
+}
+
+/* The scroll container uses native scroll snapping to create full page “slides”. */
+main {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  /* Glassy surface for content containers. */
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 500;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+h2.category-title {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+p.tagline {
+  font-size: 1.25rem;
+  opacity: 0.85;
+  margin: 0.5rem 0 2rem;
+  text-align: center;
+}
+
+/* Generic input and button styling. */
+input[type='text'],
+input[type='file'],
+input[type='range'],
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin: 0.25rem;
+  box-sizing: border-box;
+}
+
+input[type='text']::placeholder {
+  color: #cfcfcf;
+  opacity: 0.6;
+}
+
+button {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Floating edit toggle button. */
+.toggle-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  backdrop-filter: blur(4px);
+}
+
+.toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Quest list and items. */
+.quest-list {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quest-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.quest-item label {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+}
+
+.quest-item input[type='checkbox'] {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.quest-item span {
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.quest-item.completed {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.quest-item:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+.delete-btn {
+  color: #f87171;
+  font-size: 0.9rem;
+  margin-left: 0.75rem;
+  background-color: transparent;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  color: #ef4444;
+}
+
+/* Container for adding new quests or editing names/taglines. */
+.add-container,
+.edit-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.add-container input[type='text'],
+.edit-container input[type='text'] {
+  flex: 1;
+}
+
+.range-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.range-container label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+  h2.category-title {
+    font-size: 1.5rem;
+  }
+  p.tagline {
+    font-size: 1rem;
+  }
+  button,
+  input {
+    font-size: 0.9rem;
+  }
+}
