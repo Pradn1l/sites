@@ -10,6 +10,34 @@
  * changes persist automatically.
  */
 
+// =======================
+// EDIT MODE PASSWORD SETUP
+// =======================
+const EDIT_PASSWORD = 'sayang'; // <-- your required password
+const EDIT_UNLOCK_KEY = 'coupleQuestEditUnlocked';
+
+// Returns true if user has already unlocked edit mode in this browser tab/session
+function isEditUnlocked() {
+  return sessionStorage.getItem(EDIT_UNLOCK_KEY) === 'true';
+}
+
+// Prompts for password and unlocks edit mode if correct
+function requestEditUnlock() {
+  // Already unlocked this session
+  if (isEditUnlocked()) return true;
+
+  const input = window.prompt('Enter password to edit:');
+  if (input === null) return false; // user pressed cancel
+
+  if (input === EDIT_PASSWORD) {
+    sessionStorage.setItem(EDIT_UNLOCK_KEY, 'true');
+    return true;
+  }
+
+  window.alert('Wrong password.');
+  return false;
+}
+
 // Default data structure used when nothing exists in localStorage.
 const defaultData = {
   names: 'You & Me',
@@ -87,10 +115,23 @@ function render() {
   const toggleBtn = document.createElement('button');
   toggleBtn.className = 'toggle-btn';
   toggleBtn.textContent = editMode ? 'Done' : 'Edit';
+
+  // ✅ Password-protected edit toggle
   toggleBtn.onclick = () => {
-    editMode = !editMode;
+    if (!editMode) {
+      // Trying to ENTER edit mode -> require password
+      const ok = requestEditUnlock();
+      if (!ok) return;
+      editMode = true;
+      render();
+      return;
+    }
+
+    // EXIT edit mode -> no password required
+    editMode = false;
     render();
   };
+
   app.appendChild(toggleBtn);
 
   // Build the scroll container.
